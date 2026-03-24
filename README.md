@@ -12,6 +12,9 @@ It includes:
 ---
 
 ## Features
+- Flask REST API includes full CRUD operations for inventory management
+
+
 
 ### REST API Endpoints
 - `GET /` → Welcome route
