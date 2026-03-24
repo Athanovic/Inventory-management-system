@@ -14,7 +14,7 @@ It includes:
 ## Features
 - Flask REST API includes full CRUD operations for inventory management
 - CLI allows listing, viewing, adding, updating, deleting, searching, and importing products
-
+- OpenFoodFacts integration supports barcode lookup and product name search
 
 ### REST API Endpoints
 - `GET /` → Welcome route
