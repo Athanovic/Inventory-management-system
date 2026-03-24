@@ -13,7 +13,7 @@ It includes:
 
 ## Features
 - Flask REST API includes full CRUD operations for inventory management
-
+- CLI allows listing, viewing, adding, updating, deleting, searching, and importing products
 
 
 ### REST API Endpoints
