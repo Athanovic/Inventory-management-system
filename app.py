@@ -123,5 +123,6 @@ def import_product_by_barcode(barcode):
     return jsonify(created_item), 201
 
 
+
 if __name__ == "__main__":
     app.run(debug=True)

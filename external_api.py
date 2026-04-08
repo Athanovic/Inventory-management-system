@@ -65,5 +65,6 @@ def search_product_by_name(name):
             "barcode": product.get("code", "")
         }
 
+
     except (requests.RequestException, ValueError):
         return None

@@ -61,6 +61,7 @@ def update_item(item_id, updates):
     return item
 
 
+
 def delete_item(item_id):
     item = get_item_by_id(item_id)
     if not item:

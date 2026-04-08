@@ -61,6 +61,7 @@ def test_search_product_by_name_success(mock_get):
     assert result["barcode"] == "3760011694103"
 
 
+
 @patch("external_api.requests.get")
 def test_search_product_by_name_not_found(mock_get):
     mock_response = Mock()

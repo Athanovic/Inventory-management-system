@@ -36,7 +36,7 @@ It includes:
 - Search product by name
 - Import product by barcode into inventory
 
-### Testing
+## Testing
 - API endpoint tests
 - CLI tests
 - External API tests

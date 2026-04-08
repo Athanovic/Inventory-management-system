@@ -130,6 +130,7 @@ def test_import_product_by_barcode(client, monkeypatch):
             "barcode": barcode
         }
 
+
     monkeypatch.setattr(app_module, "search_product_by_barcode", mock_search_product_by_barcode)
 
     response = client.post("/import/barcode/555555")
