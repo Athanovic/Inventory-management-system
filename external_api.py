@@ -1,47 +1,69 @@
 import requests
 
-BARCODE_URL = "https://world.openfoodfacts.org/api/v2/product/{}.json"
-SEARCH_URL = "https://world.openfoodfacts.org/cgi/search.pl"
+BASE_PRODUCT_URL = "https://world.openfoodfacts.org/api/v0/product"
+BASE_SEARCH_URL = "https://world.openfoodfacts.org/cgi/search.pl"
 
 
-def fetch_product_by_barcode(barcode):
+def search_product_by_barcode(barcode):
+    """
+    Fetch a product by barcode from OpenFoodFacts.
+    Returns a simplified product dict or None if not found.
+    """
+    url = f"{BASE_PRODUCT_URL}/{barcode}.json"
+
     try:
-        response = requests.get(BARCODE_URL.format(barcode), timeout=5)
+        response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
 
-        if data.get("status") == 1:
-            return data.get("product", {})
-        return None
+        if data.get("status") != 1 or "product" not in data:
+            return None
 
-    except requests.RequestException:
-        return None
+        product = data["product"]
 
-
-def fetch_products_by_name(name):
-    try:
-        params = {
-            "search_terms": name,
-            "search_simple": 1,
-            "action": "process",
-            "json": 1
+        return {
+            "status": data.get("status", 0),
+            "product_name": product.get("product_name", "Unknown Product"),
+            "brand": product.get("brands", "Unknown Brand"),
+            "ingredients": product.get("ingredients_text", ""),
+            "barcode": barcode
         }
-        response = requests.get(SEARCH_URL, params=params, timeout=5)
+
+    except (requests.RequestException, ValueError):
+        return None
+
+
+def search_product_by_name(name):
+    """
+    Search a product by name from OpenFoodFacts.
+    Returns the first matching simplified product dict or None.
+    """
+    params = {
+        "search_terms": name,
+        "search_simple": 1,
+        "action": "process",
+        "json": 1,
+        "page_size": 1
+    }
+
+    try:
+        response = requests.get(BASE_SEARCH_URL, params=params, timeout=10)
         response.raise_for_status()
         data = response.json()
 
         products = data.get("products", [])
-        results = []
+        if not products:
+            return None
 
-        for product in products[:5]:  # limit to first 5 results
-            results.append({
-                "product_name": product.get("product_name", "Unknown Product"),
-                "brands": product.get("brands", "Unknown Brand"),
-                "ingredients_text": product.get("ingredients_text", "N/A"),
-                "code": product.get("code", "N/A")
-            })
+        product = products[0]
 
-        return results
+        return {
+            "status": 1,
+            "product_name": product.get("product_name", "Unknown Product"),
+            "brand": product.get("brands", "Unknown Brand"),
+            "ingredients": product.get("ingredients_text", ""),
+            "barcode": product.get("code", "")
+        }
 
-    except requests.RequestException:
-        return []
+    except (requests.RequestException, ValueError):
+        return None

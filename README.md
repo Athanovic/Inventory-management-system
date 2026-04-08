@@ -1,38 +1,50 @@
-# Inventory Management System (Flask REST API + CLI)
+# Inventory Management System (Flask REST API)
 
 ## Project Overview
-This project is a Python Flask-based Inventory Management System for a small retail company.
+This project is a Flask-based Inventory Management System for a small retail company.
 
 It includes:
-- A Flask REST API with CRUD operations
-- OpenFoodFacts external API integration
-- A CLI tool to interact with the API
+- Full CRUD operations for inventory items
+- External API integration with OpenFoodFacts
+- CLI interface for interacting with the API
 - Unit tests using pytest and unittest.mock
 
 ---
 
 ## Features
-- Flask REST API includes full CRUD operations for inventory management
-- CLI allows listing, viewing, adding, updating, deleting, searching, and importing products
-- OpenFoodFacts integration supports barcode lookup and product name search
-- Pytest test suite covers API routes, CLI interactions, and external API mocking
 
-### REST API Endpoints
-- `GET /` → Welcome route
+### Flask REST API Routes
+- `GET /` → API status check
 - `GET /inventory` → Fetch all inventory items
-- `GET /inventory/<id>` → Fetch a single item
-- `POST /inventory` → Add a new item
-- `PATCH /inventory/<id>` → Update an item
-- `DELETE /inventory/<id>` → Delete an item
-- `GET /search/barcode/<barcode>` → Search OpenFoodFacts by barcode
-- `GET /search/name/<name>` → Search OpenFoodFacts by product name
-- `POST /inventory/import/<barcode>` → Import product from OpenFoodFacts into inventory
+- `GET /inventory/<id>` → Fetch a single inventory item
+- `POST /inventory` → Add a new inventory item
+- `PATCH /inventory/<id>` → Update an inventory item
+- `DELETE /inventory/<id>` → Delete an inventory item
 
----
+### External API Helper Routes
+- `GET /search/barcode/<barcode>` → Search product from OpenFoodFacts by barcode
+- `GET /search/name/<name>` → Search product from OpenFoodFacts by product name
+- `POST /import/barcode/<barcode>` → Import product from OpenFoodFacts into inventory array
 
-## Installation & Setup
+### CLI Interface
+- List inventory
+- View single item
+- Add item
+- Update item
+- Delete item
+- Search product by barcode
+- Search product by name
+- Import product by barcode into inventory
 
-### 1. Clone the repository
-```bash
-git clone <your-repo-url>
-cd inventory-management-system
+### Testing
+- API endpoint tests
+- CLI tests
+- External API tests
+- Mocked API responses using unittest.mock
+
+## Requirements
+- Python 3.10+
+- pip
+- Flask
+- requests
+- pytest
