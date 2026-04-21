@@ -69,3 +69,6 @@ def delete_item(item_id):
 
     inventory.remove(item)
     return True
+
+
+

@@ -1,3 +1,5 @@
+print("🔥 CORRECT APP IS RUNNING")
+
 from flask import Flask, jsonify, request
 
 from inventory import inventory, get_all_items, get_item_by_id, add_item, update_item, delete_item
@@ -103,9 +105,8 @@ def search_by_name(name):
     return jsonify({"error": "Product not found from external API"}), 404
 
 
-@app.route("/import/barcode/<barcode>", methods=["POST"])
+@app.route('/inventory/import/<barcode>', methods=['POST'])
 def import_product_by_barcode(barcode):
-    product = search_product_by_barcode(barcode)
 
     if not product:
         return jsonify({"error": "Product not found from external API"}), 404
@@ -123,6 +124,7 @@ def import_product_by_barcode(barcode):
     return jsonify(created_item), 201
 
 
+print(app.url_map)
 
 if __name__ == "__main__":
     app.run(debug=True)
