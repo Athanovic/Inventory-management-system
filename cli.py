@@ -122,7 +122,7 @@ def main():
         elif choice == "8":
             import_barcode()
         elif choice == "9":
-            print("Goodbye!")
+            print("Exiting CLI. Goodbye!")
             break
         else:
             print("Invalid choice")
